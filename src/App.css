@@ -1,0 +1,105 @@
+ /* Fondo interactivo Apple-like */
+ .cursor-glow {
+   position: fixed;
+   width: 420px;
+   height: 420px;
+   border-radius: 50%;
+   pointer-events: none;
+   background: radial-gradient(circle, rgba(201, 162, 77, 0.25), rgba(107, 124, 92, 0.18), transparent 70%);
+   filter: blur(60px);
+   transform: translate(-50%, -50%);
+   z-index: -1;
+ }
+
+ .barra-de-navegacion {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: relative;
+ }
+
+ .nav-glass {
+   top: 1em;
+   position: fixed;
+   display: flex;
+   align-items: center;
+   gap: 30px;
+   list-style: none;
+   margin-top: 2em;
+   padding: 1.5em;
+   border-radius: 30px;
+   /* Efecto Liquid Glass */
+   background: rgba(255, 255, 255, 0.062);
+   backdrop-filter: blur(12px) saturate(180%);
+   -webkit-backdrop-filter: blur(12px) saturate(180%);
+   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.295), 0 0 20px rgba(0, 0, 0, 0.1);
+   /* Borde de cristal */
+   border: 1px solid rgba(255, 255, 255, 0.3);
+   border-top: 1px solid rgba(255, 255, 255, 0.5);
+ }
+
+ .nav-glass a {
+   color: var(--text-light);
+   text-decoration: none;
+   text-transform: uppercase;
+   padding: 15px;
+   /* backdrop-filter: blur(12px) saturate(180%);
+   -webkit-backdrop-filter: blur(12px) saturate(180%);
+   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+   /* Borde de cristal 
+   border-top: 1px solid rgba(255, 255, 255, 0.5); */
+   border-radius: 30px;
+   transition:inherit 0.8s;
+ }
+
+ .nav-glass a:hover {
+   /* Un poco más de escala para que se note el efecto */
+/*    background: rgba(255, 255, 255, 0.2);
+ */  
+ background-color: var(--bg-dark);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+ }
+
+ .nav-glass li {
+   transition: all 0.8s;
+ }
+
+ .nav-glass li:hover {
+   scale: calc(1.1);
+ }
+
+ .section-bienvenida {
+   min-height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   text-align: center;
+   flex-direction: column;
+   padding: 0 8%;
+ }
+
+ .section-bienvenida h1 {
+   font-size: clamp(2.8rem, 6vw, 5rem);
+   font-weight: 700;
+   letter-spacing: -0.04em;
+ }
+
+ .section-bienvenida h1 span {
+   background: linear-gradient(120deg, var(--gold), var(--olive));
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+ }
+
+ .section-bienvenida p {
+   margin-top: 20px;
+   font-size: 1.2rem;
+   color: var(--text-muted);
+   max-width: 680px;
+   margin-left: auto;
+   margin-right: auto;
+ }
+
+ .About{
+  height: 40vh;
+  background-color: var(--bg-light);
+ }
