@@ -1,21 +1,44 @@
  /* Fondo interactivo Apple-like */
  .cursor-glow {
    position: fixed;
-   width: 420px;
-   height: 420px;
+   width: 300px;
+   height: 300px;
    border-radius: 50%;
    pointer-events: none;
-   background: radial-gradient(circle, rgba(201, 162, 77, 0.25), rgba(107, 124, 92, 0.18), transparent 70%);
+   /* Se agregó la coma faltante entre los dos colores RGBA */
+   background: radial-gradient(circle,
+       rgba(113, 22, 216, 0.9) 0%,
+       rgba(255, 66, 239, 0.35) 50%,
+       transparent 75%);
    filter: blur(60px);
    transform: translate(-50%, -50%);
    z-index: -1;
  }
 
  .barra-de-navegacion {
-   display: flex;
+   display: grid;
+   grid-template-columns: 0fr auto 1fr;
    align-items: center;
-   justify-content: center;
+   justify-items: center;
    position: relative;
+
+ }
+
+ .logo {
+   padding: 2em;
+
+ }
+
+ .logo li {
+   list-style: none;
+ }
+
+ .logo a {
+   font-size: 1.4rem;
+   font-weight: 600;
+   color: white;
+   text-decoration: none;
+   text-transform: uppercase;
  }
 
  .nav-glass {
@@ -36,6 +59,9 @@
    /* Borde de cristal */
    border: 1px solid rgba(255, 255, 255, 0.3);
    border-top: 1px solid rgba(255, 255, 255, 0.5);
+   z-index: 20;
+   transition: all 0.4s ease;
+
  }
 
  .nav-glass a {
@@ -49,15 +75,15 @@
    /* Borde de cristal 
    border-top: 1px solid rgba(255, 255, 255, 0.5); */
    border-radius: 30px;
-   transition:inherit 0.8s;
+   transition: inherit 0.5s;
  }
 
  .nav-glass a:hover {
    /* Un poco más de escala para que se note el efecto */
-/*    background: rgba(255, 255, 255, 0.2);
- */  
- background-color: var(--bg-dark);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+   /*    background: rgba(255, 255, 255, 0.2);
+ */
+   background-color: var(--bg-dark);
+   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
  }
 
  .nav-glass li {
@@ -67,6 +93,22 @@
  .nav-glass li:hover {
    scale: calc(1.1);
  }
+
+ /* Clase que se activa al hacer scroll */
+ .nav-glass.nav-dark {
+   background: rgba(0, 0, 0, 0.4);
+   /* Fondo más oscuro */
+   border: 1px solid rgba(0, 0, 0, 0.2);
+   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+   transition: background 0.4s ease, border 0.4s ease;
+   /* Transición suave */
+ }
+
+ /* También querrás que los enlaces cambien si el fondo es oscuro */
+ .nav-glass.nav-dark li a {
+   color: white;
+ }
+
 
  .section-bienvenida {
    min-height: 100vh;
@@ -85,7 +127,7 @@
  }
 
  .section-bienvenida h1 span {
-   background: linear-gradient(120deg, var(--gold), var(--olive));
+   background: linear-gradient(120deg, var(--morado), var(--pink));
    -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;
  }
@@ -99,7 +141,40 @@
    margin-right: auto;
  }
 
- .About{
-  height: 40vh;
-  background-color: var(--bg-light);
+ .About {
+   height: 100vh;
+   background-color: var(--bg-light);
+   color: var(--bg-dark);
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   justify-content: center;
+ }
+
+ .About img {
+   height: 40em;
+   border-radius: 20px;
+ }
+
+ .About-conten {
+   display: flex;
+   align-items: center;
+   flex-direction: row;
+   gap: 2em;
+ }
+
+ .About-conten h2 {
+   font-size: 30px;
+   text-transform: capitalize;
+ }
+
+ .About-conten p {
+   margin-top: 30px;
+ }
+
+ .About-conten1 {
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   width: 30em;
  }
