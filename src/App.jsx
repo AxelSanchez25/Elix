@@ -3,6 +3,7 @@ import './App.css'
 import Navbar from './components/Navbar'
 import Hero from './components/hero'
 import About from './components/About'
+import Proyectos from './components/Proyectos'
 
 // 1. Importaciones de las nuevas librerías
 import Lenis from 'lenis'
@@ -57,6 +58,8 @@ function App() {
       <Navbar />
       <Hero />
       <About />
+      <Proyectos/>
+
     </>
   )
 }
