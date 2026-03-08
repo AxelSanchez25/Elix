@@ -27,7 +27,7 @@ export default function Hero() {
     return (
         <header>
             <div className='section-bienvenida'>
-                <h1 ref={tituloRef}>Diseño, código y propósito.<br /><span>Todo en uno.</span></h1>
+                <h1 ref={tituloRef}>Diseño, código y propósito<br /><span>Todo en uno</span></h1>
                 <p>
                     <TypewriterText
                         text="      Soy axel sanchez. Programador y creador visual.

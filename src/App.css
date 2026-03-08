@@ -1,8 +1,8 @@
  /* Fondo interactivo Apple-like */
  .cursor-glow {
    position: fixed;
-   width: 300px;
-   height: 300px;
+   width: 200px;
+   height: 200px;
    border-radius: 50%;
    pointer-events: none;
    /* Se agregó la coma faltante entre los dos colores RGBA */
@@ -15,99 +15,161 @@
    z-index: -1;
  }
 
- .barra-de-navegacion {
-   display: grid;
-   grid-template-columns: 0fr auto 1fr;
-   align-items: center;
-   justify-items: center;
-   position: relative;
 
- }
+.barra-de-navegacion {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0; /* Empieza pegado a los bordes */
+  z-index: 9999;
+  transition: padding 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
- .logo {
-   padding: 2em;
+.nav-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 5vw;
+  background: rgba(8, 9, 12, 0); /* Empieza transparente */
+  backdrop-filter: blur(0px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
- }
+/* --- ESTADO SCROLLED (La Píldora Tech) --- */
+.barra-de-navegacion.is-scrolled {
+  padding-top: 1.5rem; /* Se separa del techo */
+}
 
- .logo li {
-   list-style: none;
- }
+.barra-de-navegacion.is-scrolled .nav-container {
+  width: 90%; /* O un max-width como 1000px */
+  max-width: 1100px;
+  border-radius: 100px;
+  background: rgba(8, 9, 12, 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 15px 10px 25px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
 
- .logo a {
-   font-size: 1.4rem;
-   font-weight: 600;
-   color: white;
-   text-decoration: none;
-   text-transform: uppercase;
- }
+/* Ajustes de los elementos internos al encogerse */
+.barra-de-navegacion.is-scrolled .logo a {
+  font-size: 0.7rem;
+}
 
- .nav-glass {
-   top: 1em;
-   position: fixed;
-   display: flex;
-   align-items: center;
-   gap: 30px;
-   list-style: none;
-   margin-top: 2em;
-   padding: 1.5em;
-   border-radius: 30px;
-   /* Efecto Liquid Glass */
-   background: rgba(255, 255, 255, 0.062);
-   backdrop-filter: blur(12px) saturate(180%);
-   -webkit-backdrop-filter: blur(12px) saturate(180%);
-   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.295), 0 0 20px rgba(0, 0, 0, 0.1);
-   /* Borde de cristal */
-   border: 1px solid rgba(255, 255, 255, 0.3);
-   border-top: 1px solid rgba(255, 255, 255, 0.5);
-   z-index: 20;
-   transition: all 0.4s ease;
+.barra-de-navegacion.is-scrolled .nav-glass li a {
+  font-size: 0.7rem;
+  padding: 8px 15px;
+}
 
- }
+/* El Logo Tech */
+.logo a {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
- .nav-glass a {
-   color: var(--text-light);
-   text-decoration: none;
-   text-transform: uppercase;
-   padding: 15px;
-   /* backdrop-filter: blur(12px) saturate(180%);
-   -webkit-backdrop-filter: blur(12px) saturate(180%);
-   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
-   /* Borde de cristal 
-   border-top: 1px solid rgba(255, 255, 255, 0.5); */
-   border-radius: 30px;
-   transition: inherit 0.5s;
- }
 
- .nav-glass a:hover {
-   /* Un poco más de escala para que se note el efecto */
-   /*    background: rgba(255, 255, 255, 0.2);
- */
-   background-color: var(--bg-dark);
-   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
- }
 
- .nav-glass li {
-   transition: all 0.8s;
- }
+.logo a::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--morado);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--morado);
+}
 
- .nav-glass li:hover {
-   scale: calc(1.1);
- }
+/* Lista de navegación */
+.nav-glass {
+  display: flex;
+  list-style: none;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+}
 
- /* Clase que se activa al hacer scroll */
- .nav-glass.nav-dark {
-   background: rgba(0, 0, 0, 0.4);
-   /* Fondo más oscuro */
-   border: 1px solid rgba(0, 0, 0, 0.2);
-   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-   transition: background 0.4s ease, border 0.4s ease;
-   /* Transición suave */
- }
+.nav-glass li a {
+  color: var(--text-muted);
+  text-decoration: none;
+  text-transform: capitalize;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+  position: relative;
+}
 
- /* También querrás que los enlaces cambien si el fondo es oscuro */
- .nav-glass.nav-dark li a {
-   color: white;
- }
+/* Efecto Hover Tech */
+.nav-glass li a:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Indicador de activo (Punto debajo) */
+.nav-glass li a.active::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 1px;
+  background: var(--morado);
+  box-shadow: 0 0 8px var(--morado);
+}
+
+/* El botón se vuelve más compacto */
+.cta-tech {
+  background: #fff;
+  color: #000;
+  padding: 12px 24px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.barra-de-navegacion.is-scrolled .cta-tech {
+  padding: 8px 18px;
+  font-size: 0.65rem;
+}
+
+.cta-tech:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+}
+
+/* Animación cuando haces scroll */
+.nav-container.scrolled {
+  transform: scale(0.9);
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid var(--morado);
+  box-shadow: 0 10px 30px var(--nav-glow);
+}
+
+/* Efecto de ruido en el fondo (Grainy Texture) */
+.barra-de-navegacion.is-scrolled .nav-container::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  border-radius: inherit;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.05; /* Muy sutil */
+  pointer-events: none;
+}
 
 
  .section-bienvenida {
@@ -121,7 +183,7 @@
  }
 
  .section-bienvenida h1 {
-   font-size: clamp(2.8rem, 6vw, 5rem);
+   font-size: clamp(2.8rem, 6vw, 9rem);
    font-weight: 700;
    letter-spacing: -0.04em;
  }
@@ -141,6 +203,92 @@
    margin-right: auto;
  }
 
+
+/* sobre mi */
+.circular-slider-section {
+  background: #08090C; /* El negro profundo de Roshan */
+  padding: 150px 0;
+  overflow: hidden;
+}
+
+.slider-inner {
+  display: flex;
+  gap: 80px; /* Espacio generoso entre círculos */
+  width: max-content;
+  align-items: center;
+}
+
+.slider-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px; /* Tamaño del círculo */
+}
+
+/* El Círculo (Circular-bg) */
+.circular-bg {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%; /* Lo hace circular */
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.circular-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  scale: 1.2; /* Para que al moverlo podamos hacer zoom-out */
+  transition: transform 0.8s ease;
+  filter: grayscale(100%) brightness(0.6);
+}
+
+/* Interacción: Cuando pasas por encima o se mueve */
+.slider-card:hover .circular-bg {
+  transform: scale(1.05);
+  border-color: var(--morado);
+}
+
+.slider-card:hover .circular-bg img {
+  transform: scale(1);
+  filter: grayscale(0%) brightness(1);
+}
+
+/* El Texto que aparece debajo (Reveal) */
+.card-text-reveal {
+  margin-top: 30px;
+  text-align: center;
+  opacity: 0; /* Empieza invisible */
+  transform: translateY(20px); /* Empieza un poco más abajo */
+  transition: all 0.5s ease;
+}
+
+/* Hacemos que el texto aparezca */
+.slider-card:hover .card-text-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-text-reveal .category {
+  color: var(--morado);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.card-text-reveal h4 {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-top: 10px;
+  letter-spacing: -0.02em;
+}
+
+
+/* tec */
  .about-container {
    background-color: #000;
    /* Fondo negro puro Stark */
@@ -156,7 +304,7 @@
    align-items: center;
    justify-content: center;
    overflow: hidden;
-   background-color:var(--text-light);
+   background-color: var(--bg-dark);
    border-top: 1px solid #1a1a1a;
    /* Línea sutil de separación */
  }
@@ -176,7 +324,7 @@
    letter-spacing: -0.04em;
    margin: 10px 0;
    text-transform: uppercase;
-   color: var(--bg-dark);
+   color: var(--text-light);
  }
 
  .label {
@@ -220,143 +368,120 @@
    }
  }
 
- 
-/* Projects */
+
 .dark-section {
-    position: relative;
-    height: 100vh;
-    background: #0f0f0f;
-    color: white;
-    overflow: hidden;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  overflow: hidden;
+  height: 100vh;
 }
-
-/* Scroll horizontal */
-.horizontal-wrapper {
-    height: 100%;
-}
-
 .horizontal-container {
-    display: flex;
-    height: 100%;
+  display: flex;
+  height: 100vh;
+  will-change: transform;
 }
-
-#tech-news {
-    padding: 6rem 2rem;
-    background: #f5f5f5;
-    color: #111;
-}
-
-.news-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-}
-
-.news-card {
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease;
-}
-
-.news-card:hover {
-    transform: translateY(-5px);
-}
-
-.news-card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-}
-
-.news-card-content {
-    padding: 1rem 1.5rem;
-}
-
-.news-card-content h3 {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-}
-
-.news-card-content p {
-    font-size: 0.95rem;
-    color: #555;
-    margin-bottom: 0.8rem;
-}
-
-.news-card-content a {
-    text-decoration: none;
-    color: #0070f3;
-    font-weight: 600;
-}
-/* Panel */
 .project-panel {
-    min-width: 100vw;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1.3fr 1fr;
-    align-items: center;
-    padding: 0 8vw;
-    gap: 4rem;
-    opacity: 0.3;
-    transition: background 0.5s ease;
+  min-width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8vh 6vw;
+  box-sizing: border-box;
 }
 
-/* Imagen */
-.project-image {
-    overflow: hidden;
-    border-radius: 20px;
-    position: relative;
+ /* Tipografía Rockstar: Grande, pegada y con impacto */
+ .project-info {
+   align-self: end;
+ }
+.project-category {
+  color: var(--morado);
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  font-size: 0.7rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+.project-title {
+  font-size: clamp(3rem, 12vw, 10rem);
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  margin: 0;
+  text-transform: uppercase;
 }
 
-.project-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1.2);
+ /* Imagen centralizada y cinematográfica */
+.project-image-box {
+  width: 100%;
+  height: 45vh;
+  overflow: hidden;
+  background: #111;
+  margin-top: 2rem;
+  /* El secreto del look Apple: border radius sutil pero presente */
+  border-radius: 20px; 
+}
+.project-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform, filter;
+}
+ /* Footer del panel: Minimalismo puro */
+.project-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 2rem;
 }
 
-/* Contenido */
-.project-content h3 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+ .project-footer p {
+   color: var(--text-dim);
+   font-size: 0.9rem;
+   max-width: 250px;
+ }
+.explore-btn {
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--text-light);
+  text-decoration: none;
+  padding: 1rem 2.5rem;
+  border: 1px solid var(--text-muted);
+  transition: all 0.3s ease;
+}
+.explore-btn:hover {
+  background: var(--text-light);
+  color: var(--bg-dark);
 }
 
-.project-content p {
-    opacity: 0.7;
-    margin-bottom: 2rem;
-}
-
-.project-content a {
-    text-decoration: none;
-    color: white;
-    font-weight: 600;
-}
-
-/* Cursor personalizado */
+/* Cursor Ultra-Profesional */
 .cursor {
-    position: fixed;
-    padding: 12px 20px;
-    background: white;
-    color: black;
-    border-radius: 50px;
-    pointer-events: none;
-    font-size: 0.8rem;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  background: white;
+  border-radius: 50%;
+  mix-blend-mode: difference; /* Esto lo hace ver MUY pro */
+  pointer-events: none;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 900;
+  color: black;
+  opacity: 0;
+  transform: scale(0);
 }
-
-/* Barra progreso */
+ /* Barra de progreso sutil */
 .progress-bar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 4px;
-    width: 0%;
-    background: white;
-    z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--morado), var(--pink));
+  z-index: 10001;
 }

@@ -2,125 +2,127 @@ import React, { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Registrar el plugin fuera del componente
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Proyectos() {
-    useLayoutEffect(() => {
-        // Tu lógica exacta aquí dentro para que detecte los elementos
-        const container = document.querySelector(".horizontal-container");
-        const panels = gsap.utils.toArray(".project-panel");
-        const cursor = document.querySelector(".cursor");
+  const sectionRef = useRef(null);
+  const containerRef = useRef(null);
+  const cursorRef = useRef(null);
 
-        if (!container) return;
+  useLayoutEffect(() => {
+    // Definimos la función del cursor fuera para poder limpiarla correctamente
+    const moveCursor = (e) => {
+      if (cursorRef.current) {
+        gsap.to(cursorRef.current, {
+          x: e.clientX,
+          y: e.clientY,
+          duration: 0.6,
+          ease: "power3.out",
+        });
+      }
+    };
 
-        /* Scroll horizontal principal */
-        let scrollTween = gsap.to(container, {
-            x: () => -(container.scrollWidth - window.innerWidth),
-            ease: "none",
+    const ctx = gsap.context(() => {
+      const panels = gsap.utils.toArray(".project-panel");
+      if (!containerRef.current) return;
+
+      // 1. Scroll Horizontal
+      let scrollTween = gsap.to(containerRef.current, {
+        x: () => -(containerRef.current.scrollWidth - window.innerWidth),
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          pin: true,
+          scrub: 1,
+          // Evitamos el error de scrollWidth con una función flecha
+          end: () => `+=${containerRef.current?.scrollWidth || 0}`,
+          onUpdate: (self) => {
+            gsap.to(".progress-bar", {
+              width: self.progress * 100 + "%",
+              overwrite: "auto",
+            });
+          },
+        },
+      });
+
+      // 2. Animaciones de Imágenes (Efecto Revelado Apple)
+      panels.forEach((panel) => {
+        const img = panel.querySelector("img");
+        gsap.fromTo(img,
+          { scale: 1.6, filter: "contrast(1.2) brightness(0.2)" },
+          {
+            scale: 1,
+            filter: "contrast(1) brightness(1)",
             scrollTrigger: {
-                trigger: "#projects",
-                start: "top top",
-                end: () => "+=" + container.scrollWidth,
-                scrub: 1,
-                pin: true,
-                anticipatePin: 1,
-                onUpdate: self => {
-                    gsap.to(".progress-bar", {
-                        width: (self.progress * 100) + "%"
-                    });
-                }
-            }
+              trigger: panel,
+              containerAnimation: scrollTween,
+              start: "left right",
+              end: "left left",
+              scrub: true,
+            },
+          }
+        );
+      });
+
+      // 3. Eventos del Cursor (Hover)
+      panels.forEach((panel) => {
+        panel.addEventListener("mouseenter", () => {
+          gsap.to(cursorRef.current, { scale: 1, opacity: 1 });
         });
-
-        /* Activación por panel */
-        panels.forEach((panel) => {
-            ScrollTrigger.create({
-                trigger: panel,
-                containerAnimation: scrollTween,
-                start: "left center",
-                onEnter: () => activatePanel(panel),
-                onEnterBack: () => activatePanel(panel),
-            });
-
-            /* Parallax imagen */
-            gsap.to(panel.querySelector("img"), {
-                x: -100,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: panel,
-                    containerAnimation: scrollTween,
-                    start: "left right",
-                    scrub: true
-                }
-            });
+        panel.addEventListener("mouseleave", () => {
+          gsap.to(cursorRef.current, { scale: 0, opacity: 0 });
         });
+      });
 
-        function activatePanel(panel) {
-            gsap.to(panels, { opacity: 0.3 });
-            gsap.to(panel, { opacity: 1, duration: 0.6 });
-            let bg = panel.getAttribute("data-bg");
-            gsap.to("#projects", { backgroundColor: bg, duration: 0.8 });
-        }
+      window.addEventListener("mousemove", moveCursor);
+    }, sectionRef);
 
-        /* Cursor personalizado */
-        const handleMove = e => {
-            gsap.to(cursor, {
-                x: e.clientX,
-                y: e.clientY,
-                duration: 0.2
-            });
-        };
+    return () => {
+      ctx.revert();
+      window.removeEventListener("mousemove", moveCursor);
+    };
+  }, []);
 
-        document.addEventListener("mousemove", handleMove);
+  return (
+    <section ref={sectionRef} id="projects" className="dark-section">
+      <div ref={cursorRef} className="cursor">DISCOVER</div>
+      <div className="progress-bar"></div>
 
-        panels.forEach(panel => {
-            panel.addEventListener("mouseenter", () => {
-                gsap.to(cursor, { opacity: 1, scale: 1 });
-            });
-            panel.addEventListener("mouseleave", () => {
-                gsap.to(cursor, { opacity: 0, scale: 0.8 });
-            });
-        });
-
-        // Limpieza al salir
-        return () => {
-            ScrollTrigger.getAll().forEach(t => t.kill());
-            document.removeEventListener("mousemove", handleMove);
-        };
-    }, []);
-    return (
-        <section id="projects" class="dark-section">
-            <div class="cursor">Ver proyecto</div>
-            <div class="progress-bar"></div>
-
-            <div class="horizontal-wrapper">
-                <div class="horizontal-container">
-
-                    <div class="project-panel" data-bg="#0f0f0f">
-                        <div class="project-image">
-                            <img src="public/img/_SAM3878.png" alt="" />
-                        </div>
-                        <div class="project-content">
-                            <h3>JoseCarlosHerrera.com</h3>
-                            <p>Experiencia digital minimalista.</p>
-                            <a href="https://josecarlosherrera.com/" target="_blank">Ver proyecto →</a>
-                        </div>
-                    </div>
-
-                    <div class="project-panel" data-bg="#1a1a1a">
-                        <div class="project-image">
-                            <img src="public/img/_SAM3746.png" alt="" />
-                        </div>
-                        <div class="project-content">
-                            <h3>SusanitaUrban.com</h3>
-                            <p>Identidad editorial elegante.</p>
-                            <a href="https://susanitaurban.com/" target="_blank">Ver proyecto →</a>
-                        </div>
-                    </div>
-
-                </div>
+      <div className="horizontal-wrapper">
+        <div ref={containerRef} className="horizontal-container">
+          
+          {/* Proyecto 1 */}
+          <div className="project-panel">
+            <div className="project-info">
+              <span className="project-category">Interactive // 2026</span>
+              <h3 className="project-title">JOSE CARLOS<br/>HERRERA</h3>
             </div>
-        </section>
-    );
+            <div className="project-image-box">
+              <img src="public/img/_SAM3878.png" alt="Project 01" />
+            </div>
+            <div className="project-footer">
+              <p>Minimalist Digital Experience</p>
+              <a href="https://josecarlosherrera.com/" target="_blank" className="explore-btn">EXPLORE</a>
+            </div>
+          </div>
+
+          {/* Proyecto 2 */}
+          <div className="project-panel">
+            <div className="project-info">
+              <span className="project-category">Editorial // 2026</span>
+              <h3 className="project-title">SUSANITA<br/>URBAN</h3>
+            </div>
+            <div className="project-image-box">
+              <img src="public/img/_SAM3746.png" alt="Project 02" />
+            </div>
+            <div className="project-footer">
+              <p>Premium Identity Design</p>
+              <a href="https://susanitaurban.com/" target="_blank" className="explore-btn">EXPLORE</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
 }

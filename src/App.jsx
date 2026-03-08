@@ -9,6 +9,7 @@ import Proyectos from './components/Proyectos'
 import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import SobreMi from './components/Sobremi'
 
 // 2. Registro de Plugin (FUERA del componente)
 gsap.registerPlugin(ScrollTrigger);
@@ -59,6 +60,7 @@ function App() {
       <Hero />
       <About />
       <Proyectos/>
+      <SobreMi/>
 
     </>
   )

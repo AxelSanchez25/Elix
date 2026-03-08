@@ -1,35 +1,39 @@
 import React, { useState, useEffect } from 'react';
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Ajusta este número (por ejemplo 600) según dónde empiece tu sección blanca
-      if (window.scrollY > 100) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      // Se activa tras bajar 50px
+      setScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <nav className='barra-de-navegacion'>
-      <div className='logo'>
-        <ul><li><a href="">sanchezdv</a></li></ul>
+    <nav className={`barra-de-navegacion ${scrolled ? 'is-scrolled' : ''}`}>
+      <div className="nav-container">
+        
+        <div className="logo">
+          <a href="#inicio">SANCHEZDV</a>
+        </div>
+
+        <ul className="nav-glass">
+          <li><a href="#work">Work</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#labs">Labs</a></li>
+        </ul>
+
+        <div className="nav-actions">
+          <a href="#contact" className="cta-tech">
+            LET'S TALK
+          </a>
+        </div>
+
       </div>
-      {/* Condicionamos la clase: si isScrolled es true, añade 'nav-dark' */}
-      <ul className={`nav-glass ${isScrolled ? 'nav-dark' : ''}`}>
-        <li><a href="">inicio</a></li>
-        <li><a href="">proyectos</a></li>
-        <li><a href="">blog</a></li>
-        <li><a href="">link</a></li>
-      </ul>
-      <div className="placeholder"></div>
     </nav>
   );
 }
