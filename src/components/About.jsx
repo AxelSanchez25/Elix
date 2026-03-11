@@ -11,7 +11,7 @@ export default function About() {
             <h2>Simplicidad Radical</h2>
             <p>
               Me inspiro en la estética moderna y la tecnología con calma. 
-              Cada proyecto de <strong>DRAXEN CORP</strong> busca el equilibrio 
+              Cada proyecto de <strong>SANCHEZDV</strong> busca el equilibrio 
               entre funcionalidad, diseño y mensaje.
             </p>
           </div>

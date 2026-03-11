@@ -36,7 +36,7 @@ export default function SobreMiTech() {
     { title: "ESTRATEGIA", img: "public/img/san sebastian9.jpg" },
     { title: "DISEÑO UI", img: "public/img/san sebastian9.jpg" },
     { title: "MOTION", img: "public/img/san sebastian9.jpg" },
-    { title: "DEVELOPMENT", img: "public/san sebastian9.jpg" },
+    { title: "DEVELOPMENT", img: "public/img/san sebastian9.jpg" },
   ];
 
   // Duplicamos para el loop

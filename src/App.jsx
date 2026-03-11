@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
-import Hero from './components/hero'
+import Hero from './components/Hero'
 import About from './components/About'
 import Proyectos from './components/Proyectos'
 
@@ -10,6 +10,7 @@ import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SobreMi from './components/Sobremi'
+import SmoothScroll from './components/SmoothScroll'
 
 // 2. Registro de Plugin (FUERA del componente)
 gsap.registerPlugin(ScrollTrigger);
@@ -56,6 +57,7 @@ function App() {
   return (
     <>
       <div ref={glowRef} className="cursor-glow"></div>
+      <SmoothScroll />
       <Navbar />
       <Hero />
       <About />

@@ -30,19 +30,19 @@ export default function Proyectos() {
       let scrollTween = gsap.to(containerRef.current, {
         x: () => -(containerRef.current.scrollWidth - window.innerWidth),
         ease: "none",
+        /* En tu Proyectos.jsx, dentro del scrollTrigger principal */
         scrollTrigger: {
           trigger: sectionRef.current,
           pin: true,
           scrub: 1,
-          // Evitamos el error de scrollWidth con una función flecha
-          end: () => `+=${containerRef.current?.scrollWidth || 0}`,
+          anticipatePin: 1, // Ayuda a que el "pegado" sea más suave
+          end: () => "+=" + containerRef.current.scrollWidth,
+          // AQUÍ LA SOLUCIÓN AL TEMBLOR:
           onUpdate: (self) => {
-            gsap.to(".progress-bar", {
-              width: self.progress * 100 + "%",
-              overwrite: "auto",
-            });
-          },
-        },
+            // Si el scroll está muy forzado, podemos suavizar la velocidad de GSAP
+            gsap.to(".progress-bar", { width: self.progress * 100 + "%", overwrite: true });
+          }
+        }
       });
 
       // 2. Animaciones de Imágenes (Efecto Revelado Apple)
@@ -90,12 +90,12 @@ export default function Proyectos() {
 
       <div className="horizontal-wrapper">
         <div ref={containerRef} className="horizontal-container">
-          
+
           {/* Proyecto 1 */}
           <div className="project-panel">
             <div className="project-info">
               <span className="project-category">Interactive // 2026</span>
-              <h3 className="project-title">JOSE CARLOS<br/>HERRERA</h3>
+              <h3 className="project-title">JOSE CARLOS<br />HERRERA</h3>
             </div>
             <div className="project-image-box">
               <img src="public/img/_SAM3878.png" alt="Project 01" />
@@ -110,7 +110,7 @@ export default function Proyectos() {
           <div className="project-panel">
             <div className="project-info">
               <span className="project-category">Editorial // 2026</span>
-              <h3 className="project-title">SUSANITA<br/>URBAN</h3>
+              <h3 className="project-title">SUSANITA<br />URBAN</h3>
             </div>
             <div className="project-image-box">
               <img src="public/img/_SAM3746.png" alt="Project 02" />

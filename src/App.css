@@ -15,7 +15,35 @@
    z-index: -1;
  }
 
+ /* barra de scroll */
+/* 1. El contenedor de la barra (el fondo) */
+::-webkit-scrollbar {
+  width: 10px; /* Un ancho fino es más elegante que el de serie */
+}
 
+/* 2. El fondo de la barrita (Track) */
+::-webkit-scrollbar-track {
+  background: var(--bg-dark); /* Tu negro profundo */
+}
+
+/* 3. La parte que se mueve (Thumb) */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to right, var(--morado), var(--pink));
+  border-radius: 10px;
+  border: 2px solid var(--bg-dark); /* Crea un efecto de separación */
+  transition: background 0.3s ease;
+}
+
+/* 4. Cuando pasas el ratón o te mueves (Hover) */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--morado); /* ¡Aquí brilla tu color! */
+  box-shadow: 0 0 10px var(--morado); /* Un pequeño glow tech */
+}
+/* ocultar scrollbar */
+/* ::-webkit-scrollbar {
+  display: none;
+} */
+/* fin */
 .barra-de-navegacion {
   position: fixed;
   top: 0;
@@ -52,17 +80,16 @@
   background: rgba(8, 9, 12, 0.8);
   backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 10px 15px 10px 25px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
 /* Ajustes de los elementos internos al encogerse */
 .barra-de-navegacion.is-scrolled .logo a {
-  font-size: 0.7rem;
+  font-size: 1rem;
 }
 
 .barra-de-navegacion.is-scrolled .nav-glass li a {
-  font-size: 0.7rem;
+  font-size: 1rem;
   padding: 8px 15px;
 }
 
@@ -136,7 +163,7 @@
   color: #000;
   padding: 12px 24px;
   border-radius: 100px;
-  font-size: 0.75rem;
+  font-size: 1rem;
   font-weight: 800;
   text-decoration: none;
   transition: all 0.3s;
@@ -144,7 +171,7 @@
 
 .barra-de-navegacion.is-scrolled .cta-tech {
   padding: 8px 18px;
-  font-size: 0.65rem;
+  font-size: 1rem;
 }
 
 .cta-tech:hover {
