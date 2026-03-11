@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
 import Proyectos from './components/Proyectos'
+import Footer from './components/Footer'
 
 // 1. Importaciones de las nuevas librerías
 import Lenis from 'lenis'
@@ -57,13 +58,15 @@ function App() {
   return (
     <>
       <div ref={glowRef} className="cursor-glow"></div>
-      <SmoothScroll />
-      <Navbar />
-      <Hero />
-      <About />
-      <Proyectos/>
-      <SobreMi/>
-
+      <main className='main-content'>
+        <SmoothScroll />
+        <Navbar />
+        <Hero />
+        <About />
+        <Proyectos />
+        <SobreMi />
+      </main>
+      <Footer />
     </>
   )
 }

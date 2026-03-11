@@ -8,7 +8,7 @@ export default function About() {
         <div className="about-content">
           <div className="about-text">
             <span className="label">01 — Filosofía</span>
-            <h2>Simplicidad Radical</h2>
+            <h2>Simplicidad Consciente</h2>
             <p>
               Me inspiro en la estética moderna y la tecnología con calma. 
               Cada proyecto de <strong>SANCHEZDV</strong> busca el equilibrio 
@@ -29,7 +29,7 @@ export default function About() {
             <h2>Arquitectura Full Stack</h2>
             <p>
               Desarrollo interfaces líquidas y sistemas escalables. 
-              Desde el primer pixel hasta la lógica del servidor, 
+              Desde el primer boceto hasta la lógica del servidor, 
               construyo con precisión quirúrgica.
             </p>
           </div>
@@ -48,7 +48,7 @@ export default function About() {
             <p>
               La fotografía no es solo captura, es composición. 
               Aporto una mirada artística para que el branding 
-              de cada proyecto sea único e imponente.
+              de cada proyecto sea único e identificable.
             </p>
           </div>
           <div className="about-image">

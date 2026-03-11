@@ -88,11 +88,12 @@ export default function Proyectos() {
       <div ref={cursorRef} className="cursor">DISCOVER</div>
       <div className="progress-bar"></div>
 
+      <h3 className="project-title">proyectos</h3>
       <div className="horizontal-wrapper">
         <div ref={containerRef} className="horizontal-container">
-
           {/* Proyecto 1 */}
           <div className="project-panel">
+
             <div className="project-info">
               <span className="project-category">Interactive // 2026</span>
               <h3 className="project-title">JOSE CARLOS<br />HERRERA</h3>
