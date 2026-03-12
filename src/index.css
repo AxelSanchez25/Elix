@@ -29,6 +29,13 @@ body {
   
 }
 
+html{
+  cursor: none;
+}
+a, button, .arc-card {
+  cursor: none !important;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -36,6 +43,16 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* Detrás de todo */
+  background: var(--bg-dark); /* El color base de tu root */
+  pointer-events: none;
+}
 html.lenis {
   height: auto;
 }

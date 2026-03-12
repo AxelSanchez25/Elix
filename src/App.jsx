@@ -1,76 +1,79 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
 import Proyectos from './components/Proyectos'
 import Footer from './components/Footer'
-
-// 1. Importaciones de las nuevas librerías
-import Lenis from 'lenis'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SobreMi from './components/Sobremi'
 import SmoothScroll from './components/SmoothScroll'
 
-// 2. Registro de Plugin (FUERA del componente)
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   const glowRef = useRef(null)
 
   useEffect(() => {
-    // --- LÓGICA DE LENIS (Smooth Scroll) ---
-    const lenis = new Lenis()
-
-    // Sincronizar Lenis con ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update)
-
-    // Añadir el ticker de GSAP para que el scroll sea fluido
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000)
-    })
-
-    gsap.ticker.lagSmoothing(0)
-
-    // --- LÓGICA DE TU CURSOR GLOW ---
     const glow = glowRef.current
+
     const handleMove = (e) => {
-      // Tip: Podrías usar GSAP aquí también para que el cursor sea más suave
+      // Detectamos si estamos sobre algo interactivo
+      const isHovering = e.target.closest('a') || e.target.closest('button') || e.target.closest('.arc-card');
+
       gsap.to(glow, {
-        left: e.clientX,
-        top: e.clientY,
-        duration: 0.5, // Le da un ligero retraso elegante
-        ease: "power2.out"
-      })
+        x: e.clientX,
+        y: e.clientY,
+        duration: 0.4, // Más rápido para que no se sienta pesado sin el cursor real
+        ease: "power3.out",
+        scale: isHovering ? 2.5 : 1,
+        // Al hacer click (e.buttons === 1), el cursor se encoge un poco
+        width: e.buttons === 1 ? 15 : 25, 
+        height: e.buttons === 1 ? 15 : 25,
+        overwrite: "auto"
+      });
     }
 
-    window.addEventListener("mousemove", handleMove)
+    // Efectos de entrada y salida de la ventana
+    const handleMouseLeave = () => gsap.to(glow, { opacity: 0 });
+    const handleMouseEnter = () => gsap.to(glow, { opacity: 1 });
 
-    // --- LIMPIEZA ---
+    window.addEventListener("mousemove", handleMove);
+    window.addEventListener("mouseleave", handleMouseLeave);
+    window.addEventListener("mouseenter", handleMouseEnter);
+    window.addEventListener("mousedown", handleMove); // Para reacción al click
+    window.addEventListener("mouseup", handleMove);
+
     return () => {
-      window.removeEventListener("mousemove", handleMove)
-      lenis.destroy()
-      gsap.ticker.remove(lenis.raf)
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("mouseenter", handleMouseEnter);
+      window.removeEventListener("mousedown", handleMove);
+      window.removeEventListener("mouseup", handleMove);
     }
   }, [])
 
   return (
     <>
       <div ref={glowRef} className="cursor-glow"></div>
+      
+      {/* El SmoothScroll ya maneja a Lenis internamente */}
+      <SmoothScroll />
+      
+      <Navbar />
+      
       <main className='main-content'>
-        <SmoothScroll />
-        <Navbar />
         <Hero />
         <About />
         <Proyectos />
         <SobreMi />
       </main>
+      
       <Footer />
     </>
   )
 }
 
 export default App
-
-
